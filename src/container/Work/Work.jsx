@@ -15,7 +15,14 @@ const Work = () => {
   useEffect(() => {
     const query = '*[_type == "works"]';
 
+    // const post = client.fetch(query);
+    // setWorks(post);
+    //   setFilterWork(post);
+
+
     client.fetch(query).then((data) => {
+
+      
       setWorks(data);
       setFilterWork(data);
     });
@@ -39,12 +46,11 @@ const Work = () => {
   return (
     <>
       <h2 className="head-text">My Creative <span>Portfolio</span> Section</h2>
-      
-      
+
       <div className="app__work-filter">
         {['UI/UX', 'Web App', 'Mobile App', 'React JS', 'All'].map((item, index) => (
           <div
-            key={() => handleWorkFilter('all') || index}
+            key={index}
             onClick={() => handleWorkFilter(item)}
             className={`app__work-filter-item app__flex p-text ${activeFilter === item ? 'item-active' : ''}`}
           >
@@ -59,7 +65,7 @@ const Work = () => {
         className="app__work-portfolio"
       >
         {filterWork.map((work, index) => (
-          <div className="app__work-item app__flex" key={('Web App') || index}>
+          <div className="app__work-item app__flex" key={index}>
             <div
               className="app__work-img app__flex"
             >
@@ -99,7 +105,7 @@ const Work = () => {
               <p className="p-text" style={{ marginTop: 10 }}>{work.description}</p>
 
               <div className="app__work-tag app__flex">
-                <p className="p-text">{work.tags[0]}</p>
+                <p className="p-text">{work?.tags[0]}</p>
               </div>
             </div>
           </div>
@@ -114,5 +120,3 @@ export default AppWrap(
   'work',
   'app__primarybg',
 );
-
-// export default Work;
